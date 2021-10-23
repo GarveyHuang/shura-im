@@ -1,7 +1,7 @@
 package com.shura.im.gateway.api;
 
 import com.shura.im.common.res.BaseResponse;
-import com.shura.im.gateway.api.vo.req.ChatReqVO;
+import com.shura.im.gateway.api.vo.req.GroupReqVO;
 import com.shura.im.gateway.api.vo.req.LoginReqVO;
 import com.shura.im.gateway.api.vo.req.Person2PersonReqVO;
 import com.shura.im.gateway.api.vo.req.RegisterInfoReqVO;
@@ -21,7 +21,7 @@ public interface RouteApi {
      * @return
      * @throws Exception
      */
-    Object groupRoute(ChatReqVO groupReqVO) throws Exception;
+    Object groupRoute(GroupReqVO groupReqVO) throws Exception;
 
     /**
      * Point to point chat
@@ -40,7 +40,7 @@ public interface RouteApi {
      * @return
      * @throws Exception
      */
-    Object offLine(ChatReqVO groupReqVO) throws Exception;
+    Object offLine(GroupReqVO groupReqVO) throws Exception;
 
     /**
      * Login account

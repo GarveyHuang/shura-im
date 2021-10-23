@@ -8,9 +8,9 @@ import javax.validation.constraints.NotNull;
 /**
  * @Author: Garvey
  * @Created: 2021/10/22
- * @Description: Google Protocol 编解码发送 VO
+ * @Description: 群聊请求 VO
  */
-public class ChatReqVO extends BaseRequest {
+public class GroupReqVO extends BaseRequest {
 
     @NotNull(message = "userId 不能为空")
     private Long userId;
@@ -19,10 +19,10 @@ public class ChatReqVO extends BaseRequest {
     @NotBlank(message = "msg 不能为空")
     private String msg;
 
-    public ChatReqVO() {
+    public GroupReqVO() {
     }
 
-    public ChatReqVO(Long userId, String msg) {
+    public GroupReqVO(Long userId, String msg) {
         this.userId = userId;
         this.msg = msg;
     }
