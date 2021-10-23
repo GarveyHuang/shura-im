@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: im-server
+
+# web port
+server:
+  port: 8092
+
+# im netty 服务端口
+im:
+  server:
+    port: 9002
+
+logging:
+  level:
+    root:
+      info
