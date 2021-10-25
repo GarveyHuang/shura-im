@@ -14,6 +14,11 @@
 
     <modules>
         <module>im-common</module>
+        <module>im-server</module>
+        <module>im-server-api</module>
+        <module>im-gateway-api</module>
+        <module>im-gateway</module>
+        <module>im-client</module>
     </modules>
 
     <parent>
@@ -33,6 +38,18 @@
             <dependency>
                 <groupId>com.shura.im</groupId>
                 <artifactId>shura-im-common</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.shura.im</groupId>
+                <artifactId>shura-im-server-api</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.shura.im</groupId>
+                <artifactId>shura-im-gateway-api</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
 
@@ -58,6 +75,12 @@
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>22.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>commons-lang</groupId>
+                <artifactId>commons-lang</artifactId>
+                <version>2.6</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
