@@ -10,8 +10,20 @@ server:
 im:
   server:
     port: 9002
+  gateway:
+    url: http://localhost:8090/ # gateway 地址
+  heartbeat:
+    time: 30 # 检测多少秒没有收到客户端心跳后服务端关闭连接，单位秒
 
 logging:
   level:
     root:
       info
+
+app:
+  zk:
+    root: /route # zk 注册根节点
+    addr: 127.0.0.1:2181 # zk 地址
+    switch: true # 是否注册 zk
+    connect:
+      timeout: 15000 # zk 连接超时时间
