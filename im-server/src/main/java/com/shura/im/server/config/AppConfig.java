@@ -26,6 +26,12 @@ public class AppConfig {
     @Value("${im.gateway.url}")
     private String gatewayUrl;
 
+    @Value("${im.heartbeat.time}")
+    private long heartBeatTime;
+
+    @Value("${app.zk.connect.timeout}")
+    private int zkConnectTimeout;
+
     public String getGatewayUrl() {
         return gatewayUrl;
     }
@@ -33,12 +39,6 @@ public class AppConfig {
     public void setGatewayUrl(String gatewayUrl) {
         this.gatewayUrl = gatewayUrl;
     }
-
-    @Value("${im.heartbeat.time}")
-    private long heartBeatTime;
-
-    @Value("${app.zk.connect.timeout}")
-    private int zkConnectTimeout;
 
     public int getZkConnectTimeout() {
         return zkConnectTimeout;
