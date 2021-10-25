@@ -32,10 +32,10 @@ public class IMServer {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(IMServer.class);
 
-    private EventLoopGroup boss = new NioEventLoopGroup();
-    private EventLoopGroup work = new NioEventLoopGroup();
+    private final EventLoopGroup boss = new NioEventLoopGroup();
+    private final EventLoopGroup work = new NioEventLoopGroup();
 
-    @Value("${tim.server.port}")
+    @Value("${im.server.port}")
     private int nettyPort;
 
     /**
@@ -82,7 +82,7 @@ public class IMServer {
 
         ChannelFuture future = socketChannel.writeAndFlush(protocol);
         future.addListener((ChannelFutureListener) channelFuture -> {
-           LOGGER.info("Server push msg:[{}]", sendMsgReqVO.toString());
+           LOGGER.info("Server push msg:[{}]", sendMsgReqVO);
         });
     }
 }
