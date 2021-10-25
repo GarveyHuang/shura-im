@@ -25,7 +25,7 @@ public class IMServerApplication implements CommandLineRunner {
     @Autowired
     private AppConfig appConfig;
 
-    @Value("server.port")
+    @Value("${server.port}")
     private int httpPort;
 
     public static void main(String[] args) {
