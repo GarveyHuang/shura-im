@@ -10,7 +10,14 @@ import com.shura.im.common.req.BaseRequest;
 public class LoginReqVO extends BaseRequest {
 
     private Long userId;
-    private String userName;
+    private String username;
+
+    public LoginReqVO() {}
+
+    public LoginReqVO(Long userId, String username) {
+        this.userId = userId;
+        this.username = username;
+    }
 
     public Long getUserId() {
         return userId;
@@ -20,19 +27,19 @@ public class LoginReqVO extends BaseRequest {
         this.userId = userId;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     @Override
     public String toString() {
         return "LoginReqVO{" +
                 "userId=" + userId +
-                ", userName='" + userName + '\'' +
+                ", username='" + username + '\'' +
                 "} " + super.toString();
     }
 }
