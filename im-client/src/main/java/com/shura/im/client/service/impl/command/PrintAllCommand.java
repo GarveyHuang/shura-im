@@ -21,7 +21,7 @@ public class PrintAllCommand implements InnerCommand {
     private final static Logger LOGGER = LoggerFactory.getLogger(PrintAllCommand.class);
 
     @Autowired
-    private EchoService echoService ;
+    private EchoService echoService;
 
     @Override
     public void process(String msg) {

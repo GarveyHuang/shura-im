@@ -1,7 +1,7 @@
 package com.shura.im.client.client;
 
 import com.shura.im.client.component.ClientInfo;
-import com.shura.im.client.component.ReConnectManager;
+import com.shura.im.client.component.ReconnectManager;
 import com.shura.im.client.config.AppConfig;
 import com.shura.im.client.init.IMClientHandleInitializer;
 import com.shura.im.client.service.EchoService;
@@ -67,7 +67,7 @@ public class IMClient {
     private ClientInfo clientInfo;
 
     @Autowired
-    private ReConnectManager reConnectManager;
+    private ReconnectManager reconnectManager;
 
     /**
      * 重试次数
@@ -92,7 +92,7 @@ public class IMClient {
      * @param imServer
      * @throws Exception
      */
-    private void startClient(IMServerResVO.ServerInfo imServer) {
+    private void startClient(IMServerResVO.ServerInfo imServer) throws InterruptedException {
         Bootstrap bootstrap = new Bootstrap();
         bootstrap.group(group)
                 .channel(NioSocketChannel.class)
@@ -107,16 +107,18 @@ public class IMClient {
             if (errorCount >= appConfig.getErrorCount()) {
                 LOGGER.error("连接失败次数达到上限[{}]次", errorCount);
                 msgHandle.shutdown();
+                this.close();
             }
             LOGGER.error("Connect fail!", e);
+            throw new RuntimeException("Connect server fail, start im client fail!");
         }
 
-        if (future != null && future.isSuccess()) {
+        if (future.isSuccess()) {
+            channel = (SocketChannel) future.channel();
+
             echoService.echo("Start im client success!");
             LOGGER.info("启动 im client 成功");
         }
-
-        channel = (SocketChannel) future.channel();
     }
 
     /**
@@ -125,7 +127,7 @@ public class IMClient {
      * @return 路由服务器信息
      * @throws Exception
      */
-    private IMServerResVO.ServerInfo userLogin() {
+    private IMServerResVO.ServerInfo userLogin() throws InterruptedException {
         LoginReqVO loginReqVO = new LoginReqVO(userId, username);
         IMServerResVO.ServerInfo imServer = null;
         try {
@@ -142,6 +144,7 @@ public class IMClient {
             if (errorCount >= appConfig.getErrorCount()) {
                 echoService.echo("The maximum number of reconnections has been reached [{}] times, close im client!", errorCount);
                 msgHandle.shutdown();
+                this.close();
             }
             LOGGER.error("login fail", e);
         }
@@ -155,8 +158,7 @@ public class IMClient {
         IMReqMsg login = new IMReqMsg(userId, username, Constants.CommandType.LOGIN);
         ChannelFuture future = channel.writeAndFlush(login);
         future.addListener((ChannelFutureListener) channelFuture ->
-                echoService.echo("Registry im server success!")
-        );
+                echoService.echo("Registry im server success!"));
     }
 
     /**
@@ -183,7 +185,7 @@ public class IMClient {
         IMReqMsg protocol = new IMReqMsg(googleProtocolVO.getRequestId(), googleProtocolVO.getMsg(), Constants.CommandType.MSG);
         ChannelFuture future = channel.writeAndFlush(protocol);
         future.addListener((ChannelFutureListener) channelFuture ->
-                LOGGER.info("客户端手动发送 Google Protocol 成功={}", googleProtocolVO.toString()));
+                LOGGER.info("客户端手动发送 Google Protocol 成功={}", googleProtocolVO));
 
     }
 
@@ -205,8 +207,8 @@ public class IMClient {
 
         echoService.echo("im server shutdown, reconnecting....");
         start();
-        echoService.echo("Great! reConnect success!!!");
-        reConnectManager.reConnectSuccess();
+        echoService.echo("Great! reconnect success!!!");
+        reconnectManager.reconnectSuccess();
         ContextHolder.clear();
     }
 

@@ -24,7 +24,6 @@ public class IMClientHandleInitializer extends ChannelInitializer<Channel> {
                 .addLast(new IdleStateHandler(0, 15, 0))
                 .addLast(new ObjEncoder(IMReqMsg.class))
                 .addLast(new ObjDecoder(IMReqMsg.class))
-                .addLast(imClientHandle)
-        ;
+                .addLast(imClientHandle);
     }
 }

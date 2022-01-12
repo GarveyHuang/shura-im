@@ -1,6 +1,6 @@
 package com.shura.im.client.handle;
 
-import com.shura.im.client.component.ReConnectManager;
+import com.shura.im.client.component.ReconnectManager;
 import com.shura.im.client.component.ShutdownMsg;
 import com.shura.im.client.service.EchoService;
 import com.shura.im.client.service.impl.EchoServiceImpl;
@@ -35,7 +35,7 @@ public class IMClientHandle extends SimpleChannelInboundHandler<IMReqMsg> {
 
     private ScheduledExecutorService scheduledExecutorService;
 
-    private ReConnectManager reConnectManager;
+    private ReconnectManager reconnectManager;
 
     private ShutdownMsg shutdownMsg;
 
@@ -79,10 +79,10 @@ public class IMClientHandle extends SimpleChannelInboundHandler<IMReqMsg> {
 
         if (scheduledExecutorService == null) {
             scheduledExecutorService = SpringBeanFactory.getBean("scheduledTask", ScheduledExecutorService.class);
-            reConnectManager = SpringBeanFactory.getBean(ReConnectManager.class);
+            reconnectManager = SpringBeanFactory.getBean(ReconnectManager.class);
         }
         LOGGER.info("客户端断开了，重新连接！");
-        reConnectManager.reConnect(ctx);
+        reconnectManager.reconnect(ctx);
     }
 
     @Override

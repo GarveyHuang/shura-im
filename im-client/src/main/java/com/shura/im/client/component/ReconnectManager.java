@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
  * @Description:
  */
 @Component
-public class ReConnectManager {
+public class ReconnectManager {
 
     private ScheduledExecutorService scheduledExecutorService;
 
@@ -24,7 +24,7 @@ public class ReConnectManager {
      * Trigger reconnect job
      * @param ctx
      */
-    public void reConnect(ChannelHandlerContext ctx) {
+    public void reconnect(ChannelHandlerContext ctx) {
         buildExecutor() ;
         scheduledExecutorService.scheduleAtFixedRate(new ReconnectJob(ctx),0,10, TimeUnit.SECONDS) ;
     }
@@ -32,7 +32,7 @@ public class ReConnectManager {
     /**
      * Close reconnect job if reconnect success.
      */
-    public void reConnectSuccess(){
+    public void reconnectSuccess(){
         scheduledExecutorService.shutdown();
     }
 
@@ -43,11 +43,11 @@ public class ReConnectManager {
      */
     private ScheduledExecutorService buildExecutor() {
         if (scheduledExecutorService == null || scheduledExecutorService.isShutdown()) {
-            ThreadFactory scheduled = new ThreadFactoryBuilder()
-                    .setNameFormat("reConnect-job-%d")
+            ThreadFactory scheduledFactory = new ThreadFactoryBuilder()
+                    .setNameFormat("reconnect-job-%d")
                     .setDaemon(true)
                     .build();
-            scheduledExecutorService = new ScheduledThreadPoolExecutor(1, scheduled);
+            scheduledExecutorService = new ScheduledThreadPoolExecutor(1, scheduledFactory);
         }
 
         return scheduledExecutorService;

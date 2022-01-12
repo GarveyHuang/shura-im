@@ -24,14 +24,10 @@ public class EchoServiceImpl implements EchoService {
     @Override
     public void echo(String msg, Object... replace) {
         String date = LocalDate.now() + " " + LocalTime.now().withNano(0).toString();
-
-        msg = "[" + date + "] \033[31;4m" + appConfig.getUserName() + PREFIX + "\033[0m" + " " + msg;
-
+        msg = "[" + date + "] \033[31;4m" + appConfig.getUsername() + PREFIX + "\033[0m" + " " + msg;
         String log = print(msg, replace);
-
         System.out.println(log);
     }
-
 
     /**
      * 打印消息

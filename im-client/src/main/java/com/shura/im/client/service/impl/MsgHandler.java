@@ -1,7 +1,5 @@
 package com.shura.im.client.service.impl;
 
-import com.shura.im.client.client.IMClient;
-import com.shura.im.client.component.ClientInfo;
 import com.shura.im.client.component.InnerCommandContext;
 import com.shura.im.client.config.AppConfig;
 import com.shura.im.client.service.InnerCommand;
@@ -38,17 +36,11 @@ public class MsgHandler implements MsgHandle {
     @Autowired
     private AppConfig appConfig;
 
-    @Resource(name = "callBackThreadPool")
+    @Resource(name = "callbackThreadPool")
     private ThreadPoolExecutor executor;
 
     @Autowired
-    private IMClient imClient;
-
-    @Autowired
     private MsgLoggerService msgLoggerService;
-
-    @Autowired
-    private ClientInfo clientInfo;
 
     @Autowired
     private InnerCommandContext innerCommandContext;
@@ -152,7 +144,6 @@ public class MsgHandler implements MsgHandle {
             while (!executor.awaitTermination(1, TimeUnit.SECONDS)) {
                 LOGGER.info("线程池关闭中。。。。");
             }
-            imClient.close();
         } catch (InterruptedException e) {
             LOGGER.error("InterruptedException", e);
         }
