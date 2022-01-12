@@ -56,7 +56,7 @@ public final class ProxyManager<T> {
             JSONObject jsonObject = new JSONObject();
             String serverUrl = url + "/" + method.getName() ;
 
-            if (args != null && args.length > 1) {
+            if (args == null || args.length < 1) {
                 throw new IMException(StatusEnum.VALIDATION_FAIL);
             }
 
