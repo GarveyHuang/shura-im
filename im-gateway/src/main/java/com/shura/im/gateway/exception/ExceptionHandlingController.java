@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @Description: 统一异常处理
  */
 @ControllerAdvice
-public class ExceptionHandling {
+public class ExceptionHandlingController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ExceptionHandling.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ExceptionHandlingController.class);
 
     @ExceptionHandler(IMException.class)
     @ResponseBody
