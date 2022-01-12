@@ -22,11 +22,11 @@
 
 **支持集群部署。**
 
-### tim-gateway
+### im-gateway
 
 消息路由网关；用于处理消息路由、消息转发、用户登录、用户下线以及一些运营工具（获取在线用户数等）。
 
-### tim-client
+### im-client
 
 `IM` 客户端；给用户使用的消息终端，一个命令即可启动并向其他人发起通讯（群聊、私聊）。
 
@@ -43,16 +43,16 @@
 
 首先需要安装 `Zookeeper`、`Redis` 并保证网络通畅。
 
-### 部署 IM-server(tim-server)
+### 部署 IM-server(im-server)
 
 直接运行 `IMServerApplication.java`
 
-### 部署网关服务器(tim-gateway)
+### 部署网关服务器(im-gateway)
 
 直接运行 `GatewayApplication.java`
 > `im-gateway` 本身就是无状态，可以部署多台；使用 `Nginx` 代理即可。
 
-### 启动客户端(tim-client)
+### 启动客户端(im-client)
 
 直接运行 `IMClientApplication.java`
 
@@ -99,7 +99,7 @@ curl -X POST --header 'Content-Type: application/json' --header 'Accept: applica
 
 使用命令 `:q 关键字` 即可查询与个人相关的聊天记录。
 
-> 客户端聊天记录默认存放在 `/opt/logs/tim/`，所以需要这个目录的写入权限。也可在启动命令中加入 `--tim.msg.logger.path = /自定义` 参数自定义目录。
+> 客户端聊天记录默认存放在 `/opt/logs/im/`，所以需要这个目录的写入权限。也可在启动命令中加入 `--im.msg.logger.path = /自定义` 参数自定义目录。
 
 ### 前缀匹配用户名
 
