@@ -43,4 +43,13 @@ public class IMReqMsg {
     public void setType(Integer type) {
         this.type = type;
     }
+
+    @Override
+    public String toString() {
+        return "IMReqMsg{" +
+                "requestId=" + requestId +
+                ", reqMsg='" + reqMsg + '\'' +
+                ", type=" + type +
+                '}';
+    }
 }
