@@ -237,6 +237,8 @@ public final class RingBufferWheel {
             taskMap.remove(task.getTaskId());
         }
 
+        ringBuffer[key] = tempTask;
+
         return result;
     }
 
