@@ -60,12 +60,12 @@ public interface AccountService {
     /**
      * 推送消息
      *
-     * @param TIMServerResVO
+     * @param imServerResVO
      * @param groupReqVO     消息
      * @param sendUserId     发送者的ID
      * @throws Exception
      */
-    void pushMsg(IMServerResVO TIMServerResVO, long sendUserId, GroupReqVO groupReqVO) throws Exception;
+    void pushMsg(IMServerResVO imServerResVO, long sendUserId, GroupReqVO groupReqVO) throws Exception;
 
     /**
      * 用户下线

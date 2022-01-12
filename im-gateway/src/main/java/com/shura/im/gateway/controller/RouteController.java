@@ -69,19 +69,19 @@ public class RouteController implements RouteApi {
 
         // 获取所有的推送列表
         Map<Long, IMServerResVO> serverResVOMap = accountService.loadRouteRelated();
-        for (Map.Entry<Long, IMServerResVO> timServerResVOEntry : serverResVOMap.entrySet()) {
-            Long userId = timServerResVOEntry.getKey();
-            IMServerResVO TIMServerResVO = timServerResVOEntry.getValue();
+        for (Map.Entry<Long, IMServerResVO> imServerResVOEntry : serverResVOMap.entrySet()) {
+            Long userId = imServerResVOEntry.getKey();
+            IMServerResVO imServerResVO = imServerResVOEntry.getValue();
             if (userId.equals(groupReqVO.getUserId())) {
                 // 过滤掉自己
-                IMUserInfo timUserInfo = userInfoCacheService.loadUserInfoByUserId(groupReqVO.getUserId());
-                LOGGER.warn("过滤掉了发送者 userId={}", timUserInfo.toString());
+                IMUserInfo imUserInfo = userInfoCacheService.loadUserInfoByUserId(groupReqVO.getUserId());
+                LOGGER.warn("过滤掉了发送者 userId={}", imUserInfo.toString());
                 continue;
             }
 
             //推送消息
             GroupReqVO chatVO = new GroupReqVO(userId, groupReqVO.getMsg());
-            accountService.pushMsg(TIMServerResVO, groupReqVO.getUserId(), chatVO);
+            accountService.pushMsg(imServerResVO, groupReqVO.getUserId(), chatVO);
         }
 
         res.setCode(StatusEnum.SUCCESS.getCode());
@@ -131,9 +131,9 @@ public class RouteController implements RouteApi {
     public BaseResponse<NullBody> offLine(@RequestBody GroupReqVO groupReqVO) throws Exception {
         BaseResponse<NullBody> res = new BaseResponse();
 
-        IMUserInfo timUserInfo = userInfoCacheService.loadUserInfoByUserId(groupReqVO.getUserId());
+        IMUserInfo imUserInfo = userInfoCacheService.loadUserInfoByUserId(groupReqVO.getUserId());
 
-        LOGGER.info("user [{}] offline!", timUserInfo.toString());
+        LOGGER.info("user [{}] offline!", imUserInfo.toString());
         accountService.offLine(groupReqVO.getUserId());
 
         res.setCode(StatusEnum.SUCCESS.getCode());
