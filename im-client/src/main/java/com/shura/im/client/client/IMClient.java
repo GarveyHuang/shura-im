@@ -127,25 +127,25 @@ public class IMClient {
      */
     private IMServerResVO.ServerInfo userLogin() {
         LoginReqVO loginReqVO = new LoginReqVO(userId, username);
-        IMServerResVO.ServerInfo timServer = null;
+        IMServerResVO.ServerInfo imServer = null;
         try {
-            timServer = routeRequestService.getTIMServer(loginReqVO);
+            imServer = routeRequestService.getIMServer(loginReqVO);
 
             //保存系统信息
-            clientInfo.saveServiceInfo(timServer.getIp() + ":" + timServer.getImServerPort())
+            clientInfo.saveServiceInfo(imServer.getIp() + ":" + imServer.getImServerPort())
                     .saveUserInfo(userId, username);
 
-            LOGGER.info("imServer=[{}]", timServer.toString());
+            LOGGER.info("imServer=[{}]", imServer.toString());
         } catch (Exception e) {
             errorCount++;
 
             if (errorCount >= appConfig.getErrorCount()) {
-                echoService.echo("The maximum number of reconnections has been reached[{}]times, close im client!", errorCount);
+                echoService.echo("The maximum number of reconnections has been reached [{}] times, close im client!", errorCount);
                 msgHandle.shutdown();
             }
             LOGGER.error("login fail", e);
         }
-        return timServer;
+        return imServer;
     }
 
     /**

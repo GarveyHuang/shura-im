@@ -36,7 +36,7 @@ public interface RouteRequestService {
      * @param loginReqVO
      * @throws Exception
      */
-    IMServerResVO.ServerInfo getTIMServer(LoginReqVO loginReqVO) throws Exception;
+    IMServerResVO.ServerInfo getIMServer(LoginReqVO loginReqVO) throws Exception;
 
     /**
      * 获取所有在线用户
