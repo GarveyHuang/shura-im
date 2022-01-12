@@ -13,7 +13,7 @@
 - `Shura-IM` 中的各个组件均采用 `Spring Boot` 构建。
 - 采用 `Netty` 构建底层通信。
 - `Redis` 存放各个客户端的路由信息、账号信息、在线状态等。
-- `Zookeeper` 用于 `IM-Server` 服务的住的与发现。
+- `Zookeeper` 用于 `IM-Server` 服务的注册与发现。
 - 目前认证逻辑只做了简单实现，后续有时间可以优化
 
 ### im-server
@@ -24,7 +24,7 @@
 
 ### im-gateway
 
-消息路由网关；用于处理消息路由、消息转发、用户登录、用户下线以及一些运营工具（获取在线用户数等）。
+消息路由网关：用于处理消息路由、消息转发、用户登录、用户下线以及一些运营工具（获取在线用户数等）。
 
 ### im-client
 
@@ -43,14 +43,14 @@
 
 首先需要安装 `Zookeeper`、`Redis` 并保证网络通畅。
 
-### 部署 IM-server(im-server)
-
-直接运行 `IMServerApplication.java`
-
 ### 部署网关服务器(im-gateway)
 
 直接运行 `GatewayApplication.java`
 > `im-gateway` 本身就是无状态，可以部署多台；使用 `Nginx` 代理即可。
+
+### 部署服务端(im-server)
+
+直接运行 `IMServerApplication.java`
 
 ### 启动客户端(im-client)
 
@@ -120,5 +120,3 @@ curl -X POST --header 'Content-Type: application/json' --header 'Accept: applica
 输入命令 `:olu` 可列出所有在线用户。
 
 接着使用 `userId::消息内容` 的格式即可发送私聊消息。
-
-同时另一个账号收不到消息。
