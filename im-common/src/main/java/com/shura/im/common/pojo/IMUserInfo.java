@@ -34,7 +34,7 @@ public class IMUserInfo {
 
     @Override
     public String toString() {
-        return "TIMUserInfo{" +
+        return "IMUserInfo{" +
                 "userId=" + userId +
                 ", username='" + username + '\'' +
                 '}';
