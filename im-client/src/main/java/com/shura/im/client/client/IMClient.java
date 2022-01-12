@@ -41,7 +41,7 @@ public class IMClient {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(IMClient.class);
 
-    private final EventLoopGroup group = new NioEventLoopGroup(1, new DefaultThreadFactory("tim-work"));
+    private final EventLoopGroup group = new NioEventLoopGroup(1, new DefaultThreadFactory("im-work"));
 
     @Value("${im.user.id}")
     private long userId;
@@ -83,7 +83,7 @@ public class IMClient {
         startClient(imServer);
 
         //向服务端注册
-        loginTIMServer();
+        loginIMServer();
     }
 
     /**
@@ -112,8 +112,8 @@ public class IMClient {
         }
 
         if (future != null && future.isSuccess()) {
-            echoService.echo("Start tim client success!");
-            LOGGER.info("启动 tim client 成功");
+            echoService.echo("Start im client success!");
+            LOGGER.info("启动 im client 成功");
         }
 
         channel = (SocketChannel) future.channel();
@@ -140,7 +140,7 @@ public class IMClient {
             errorCount++;
 
             if (errorCount >= appConfig.getErrorCount()) {
-                echoService.echo("The maximum number of reconnections has been reached[{}]times, close tim client!", errorCount);
+                echoService.echo("The maximum number of reconnections has been reached[{}]times, close im client!", errorCount);
                 msgHandle.shutdown();
             }
             LOGGER.error("login fail", e);
@@ -151,11 +151,11 @@ public class IMClient {
     /**
      * 向服务器注册
      */
-    private void loginTIMServer() {
+    private void loginIMServer() {
         IMReqMsg login = new IMReqMsg(userId, username, Constants.CommandType.LOGIN);
         ChannelFuture future = channel.writeAndFlush(login);
         future.addListener((ChannelFutureListener) channelFuture ->
-                echoService.echo("Registry tim server success!")
+                echoService.echo("Registry im server success!")
         );
     }
 
@@ -203,7 +203,7 @@ public class IMClient {
         // 首先清除路由信息，下线
         routeRequestService.offLine();
 
-        echoService.echo("tim server shutdown, reconnecting....");
+        echoService.echo("im server shutdown, reconnecting....");
         start();
         echoService.echo("Great! reConnect success!!!");
         reConnectManager.reConnectSuccess();
