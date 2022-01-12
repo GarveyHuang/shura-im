@@ -26,7 +26,6 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ScanOptions;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
@@ -115,11 +114,7 @@ public class AccountServiceRedisImpl implements AccountService {
             parseServerInfo(routes, key);
         }
 
-        try {
-            scan.close();
-        } catch (IOException e) {
-            LOGGER.error("IOException", e);
-        }
+        scan.close();
         return routes;
     }
 
